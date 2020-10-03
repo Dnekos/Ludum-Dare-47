@@ -590,7 +590,7 @@ MonoBehaviour:
       - m_Target: {fileID: 2147324029}
         m_TargetAssemblyTypeName: AcquisitionsManager, Assembly-CSharp
         m_MethodName: BuyCow
-        m_Mode: 1
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -922,6 +922,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 114c45ad82a12654e955f3635eb4dbfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PurchasableIndex: 0
   timeleft: 0
 --- !u!114 &1406457273
 MonoBehaviour:
@@ -968,7 +969,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1406457272}
         m_TargetAssemblyTypeName: CowManager, Assembly-CSharp
-        m_MethodName: CowClick
+        m_MethodName: ProduceClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

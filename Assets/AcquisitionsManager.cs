@@ -16,17 +16,17 @@ public class AcquisitionsManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CowBuytext.text = "Buy Cow\n$" + PlayerManager.Inst.cows.price.ToString("F2");
+        CowBuytext.text = "Buy Cow\n$" + PlayerManager.Inst.purchases[0].price.ToString("F2");
     }
 
-    public void BuyCow()
+    public void BuyCow(int index)
     {
-        Cow cows = PlayerManager.Inst.cows;
-        if (cows.price < PlayerManager.Inst.money)
+        Purchasable item = PlayerManager.Inst.purchases[index];
+        if ((int)(item.price*100) <= (int)(PlayerManager.Inst.money*100))
         {
-            PlayerManager.Inst.money -= cows.price;
-            cows.price = cows.price * cows.growth_rate;
-            cows.quantity++;
+            PlayerManager.Inst.money -= (int)(item.price * 100) * 0.01f;
+            item.price = item.price * item.growth_rate;
+            item.quantity++;
         }
     }
 }

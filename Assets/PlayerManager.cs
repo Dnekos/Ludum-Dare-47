@@ -6,7 +6,7 @@ public class PlayerManager : MonoBehaviour
 {
     // Standard vars
     public float money;
-    public Cow cows;
+    public Purchasable[] purchases;
 
     // PRESTIGE vars
     public int tokens;
@@ -19,7 +19,8 @@ public class PlayerManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        cows = new Cow(1);
+        purchases = new Purchasable[1];
+        purchases[0] = new Cow(1);
 
         if (Inst == null)
         {
