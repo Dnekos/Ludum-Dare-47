@@ -6,8 +6,7 @@ using UnityEngine.UI;
 public class CowManager : MonoBehaviour
 {
     [SerializeField]
-    int PurchasableIndex;
-
+    int PurchasableIndex = 0;
     public float timeleft = 0f;
     int charging_cows = 0;
     Text buttontxt,bartxt;
@@ -19,19 +18,21 @@ public class CowManager : MonoBehaviour
         buttontxt = transform.GetChild(0).GetComponent<Text>();
         bartransform = transform.GetChild(1).GetChild(0).transform;
         bartxt = transform.GetChild(1).GetChild(1).GetComponent<Text>();
+        bartxt.text = "All " + PlayerManager.Inst.purchases[PurchasableIndex].Name + "s refilled";
     }
+
 
     // Update is called once per frame
     void Update()
     {
         Workspace item = (Workspace)PlayerManager.Inst.purchases[PurchasableIndex];
 
-        int available_cows = item.Available();
+        int available_cows = item.Available;
         float max_time = item.recharge_time;
         if (timeleft > 0)
         {
             timeleft -= Time.deltaTime; // decrease time
-            bartxt.text = Mathf.Floor(timeleft * 100) + "%"; // update time counter
+            bartxt.text = Mathf.Floor(timeleft / max_time * 100) + "%"; // update time counter
 
             if (timeleft <= 0) // if filled
             {
@@ -53,7 +54,7 @@ public class CowManager : MonoBehaviour
     public void ProduceClick()
     {
         Workspace item = (Workspace)PlayerManager.Inst.purchases[PurchasableIndex];
-        if (charging_cows < item.Available())
+        if (charging_cows < item.Available)
         {
             if(timeleft <= 0) // only reset bar is not actively charging
                 timeleft = item.recharge_time; // start charge

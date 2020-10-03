@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class PlayerManager : MonoBehaviour
 {
     // Standard vars
@@ -19,14 +19,35 @@ public class PlayerManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        purchases = new Purchasable[1];
-        purchases[0] = new Cow(1);
+        money = 0;
+        purchases = new Purchasable[6];
+        for (int i = 0; i < purchases.Length; i++)
+            purchases[i] = new Workspace(i + 1);
 
         if (Inst == null)
         {
+            Debug.Log("creating Inst");
             Inst = this;
             DontDestroyOnLoad(Inst);
         }
+        else
+            Destroy(this);
+
+        SetUpWorld();
+    }
+
+    public void Reset()
+    {
+        Inst.SetUpWorld();
+        SceneManager.LoadScene(0);
+    }
+
+    void SetUpWorld()
+    {
+        money = 0;
+        purchases = new Purchasable[6];
+        for (int i = 0; i < purchases.Length; i++)
+            purchases[i] = new Workspace(i + 1);
     }
 
     // Update is called once per frame

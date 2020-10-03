@@ -11,12 +11,24 @@ public class AcquisitionsManager : MonoBehaviour
     {
         CowBuytext = GameObject.Find("CowBuyTxt").GetComponent<Text>();
 
+        for (int i = 0; i < transform.childCount; i++)
+            transform.GetChild(i).GetChild(0).GetComponent<Text>().text =
+                "Buy " + PlayerManager.Inst.purchases[i].Name + 
+                "\n$" + PlayerManager.Inst.purchases[i].price.ToString("F2");
     }
 
     // Update is called once per frame
     void Update()
     {
-        CowBuytext.text = "Buy Cow\n$" + PlayerManager.Inst.purchases[0].price.ToString("F2");
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            Purchasable item = PlayerManager.Inst.purchases[i];
+
+            if (item.price < PlayerManager.Inst.money || item.quantity > 0)
+                transform.GetChild(i).gameObject.SetActive(true);
+            else
+                transform.GetChild(i).gameObject.SetActive(false);
+        }
     }
 
     public void BuyCow(int index)
@@ -27,6 +39,14 @@ public class AcquisitionsManager : MonoBehaviour
             PlayerManager.Inst.money -= (int)(item.price * 100) * 0.01f;
             item.price = item.price * item.growth_rate;
             item.quantity++;
+
+            UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.GetComponentInChildren<Text>().text = 
+                "Buy " + item.Name + "\n$" + item.price.ToString("F2");
         }
+    }
+
+    public void GoToAcquisitions()
+    {
+        transform.parent.SetAsLastSibling();
     }
 }
