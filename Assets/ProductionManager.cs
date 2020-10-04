@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class AcquisitionsManager : MonoBehaviour
+public class ProductionManager : MonoBehaviour
 {
+    Text WorkerBuytext;
+
     [SerializeField]
     GameObject Upgradeprefab;
     [SerializeField]
@@ -13,30 +15,28 @@ public class AcquisitionsManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        transform.parent.SetAsLastSibling();
-        for (int i = 0; i < transform.childCount; i++)
-            transform.GetChild(i).GetChild(0).GetComponent<Text>().text =
-                "Buy " + PlayerManager.Inst.purchases[i].Name + 
-                "\n$" + PlayerManager.Inst.purchases[i].price.ToString("F2");
+        WorkerBuytext = GameObject.Find("WorkerBuytext").GetComponent<Text>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        WorkerBuytext.text = "Buy Farmhand\n$" + PlayerManager.Inst.worker.price.ToString("F2");
+
         for (int i = 0; i < transform.childCount; i++)
         {
             Purchasable item = PlayerManager.Inst.purchases[i];
 
-            if (item.price < PlayerManager.Inst.money || item.quantity > 0)
+            if (item.quantity > 0)
                 transform.GetChild(i).gameObject.SetActive(true);
             else
                 transform.GetChild(i).gameObject.SetActive(false);
         }
     }
 
-    public void BuyPurchasable(int index)
+    public void BuyWorker()
     {
-        Purchasable item = PlayerManager.Inst.purchases[index];
+        Worker item = PlayerManager.Inst.worker;
         if (item.Purchase())
         {
             if (item.quantity == 5)
@@ -46,12 +46,13 @@ public class AcquisitionsManager : MonoBehaviour
                 Instantiate(Upgradeprefab, UpgradeTab);
             }
             UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.GetComponentInChildren<Text>().text = 
-                "Buy " + item.Name + "\n$" + item.price.ToString("F2");
+                "Buy Farmhand\n$" + PlayerManager.Inst.worker.price.ToString("F2");
         }
     }
 
-    public void GoToAcquisitions()
+    public void GoToProduction()
     {
         transform.parent.SetAsLastSibling();
     }
+
 }

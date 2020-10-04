@@ -37,6 +37,7 @@ public class Worker : Purchasable
 
     public Worker()
     {
+        ID = 7;
         quantity = 0;
         used = 0;
 
@@ -50,7 +51,7 @@ public class Worker : Purchasable
         // Read and print all values in table
         IDbCommand cmnd_read = dbcon.CreateCommand();
         IDataReader reader;
-        string query = "SELECT * FROM Purchasables WHERE ID = " + ID;
+        string query = "SELECT * FROM Purchasables WHERE ID = 7";
         cmnd_read.CommandText = query;
         reader = cmnd_read.ExecuteReader();
 

@@ -63,6 +63,7 @@ public class PlayerManager : MonoBehaviour
         money = 0;
         milk = 0;
         purchases = new Workspace[6];
+        worker = new Worker();
         //upgrades = new List<Upgrade>();
 
         for (int i = 0; i < purchases.Length; i++)
