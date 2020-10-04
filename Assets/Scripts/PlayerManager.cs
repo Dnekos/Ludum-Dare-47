@@ -7,10 +7,12 @@ public class PlayerManager : MonoBehaviour
     // Standard vars
     public float money;
     public Purchasable[] purchases;
+    public float milk;
 
     // PRESTIGE vars
     public int tokens;
     public List<int> research;
+
 
     // manager
     public static PlayerManager Inst; // instance
@@ -46,6 +48,7 @@ public class PlayerManager : MonoBehaviour
     void SetUpWorld()
     {
         money = 0;
+        milk = 0;
         purchases = new Purchasable[6];
         for (int i = 0; i < purchases.Length; i++)
             purchases[i] = new Workspace(i + 1);

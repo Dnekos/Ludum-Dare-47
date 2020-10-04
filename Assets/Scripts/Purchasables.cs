@@ -67,6 +67,8 @@ public class Worker : Purchasable
 
 public class Workspace : Purchasable
 {
+    public int milkcost;
+
     public int value; // how much they produce per click
     public float recharge_time; // how long till can be clicked again
 
@@ -104,6 +106,7 @@ public class Workspace : Purchasable
             value = int.Parse(reader[4].ToString());
             actionphrase = reader[5].ToString();
             recharge_time = float.Parse(reader[6].ToString());
+            milkcost = int.Parse(reader[7].ToString());
         }
 
         // Close connection

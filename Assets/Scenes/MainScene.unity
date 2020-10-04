@@ -1372,6 +1372,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   money: 0
+  milk: 0
   tokens: 0
   research: 
 --- !u!4 &934435991
@@ -1446,7 +1447,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 50
+    m_Left: 100
     m_Right: 50
     m_Top: 20
     m_Bottom: 0
