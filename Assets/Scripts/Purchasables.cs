@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Data;
-using Mono.Data.Sqlite;
+using System.Data.SQLite;
 using System.IO;
 
 public class Purchasable
@@ -45,9 +45,9 @@ public class Worker : Purchasable
         string connection = "URI=file:" + Application.dataPath + "/" + "LD47.db";
         Debug.LogError(connection);
         // Open connection
-        IDbConnection dbcon = new SqliteConnection(connection);
+        IDbConnection dbcon = new SQLiteConnection(connection);
         dbcon.Open();
-
+        Debug.LogError("help");
         // Read and print all values in table
         IDbCommand cmnd_read = dbcon.CreateCommand();
         IDataReader reader;
@@ -92,7 +92,7 @@ public class Workspace : Purchasable
         string connection = "URI=file:" + Application.dataPath + "/" + "LD47.db";
         //Debug.Log(connection);
         // Open connection
-        IDbConnection dbcon = new SqliteConnection(connection);
+        IDbConnection dbcon = new SQLiteConnection(connection);
         dbcon.Open();
         
         // Read and print all values in table
@@ -154,7 +154,7 @@ public struct Upgrade
         string connection = "URI=file:" + Application.dataPath + "/" + "LD47.db";
         //Debug.Log(connection);
         // Open connection
-        IDbConnection dbcon = new SqliteConnection(connection);
+        IDbConnection dbcon = new SQLiteConnection(connection);
         dbcon.Open();
 
         // Read and print all values in table
