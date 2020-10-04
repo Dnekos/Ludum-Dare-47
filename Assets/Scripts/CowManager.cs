@@ -31,6 +31,12 @@ public class CowManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (PlayerManager.Inst.unlocked_milk && MilkTgl)
+        {
+            MilkTgl.gameObject.SetActive(true);
+            MilkTgl.gameObject.SetActive(true);
+        }
+
         Workspace item = (Workspace)PlayerManager.Inst.purchases[PurchasableIndex];
 
         bartxt.text = "All " + item.Name + "s refilled"; // set done text
@@ -63,9 +69,11 @@ public class CowManager : MonoBehaviour
     public void ProduceClick()
     {
         Workspace item = (Workspace)PlayerManager.Inst.purchases[PurchasableIndex];
-        if (charging_cows < item.Available)
+        if (charging_cows < item.Available && PlayerManager.Inst.milk >= item.milkcost)
         {
-            if(timeleft <= 0) // only reset bar is not actively charging
+            PlayerManager.Inst.milk -= item.milkcost;
+
+            if (timeleft <= 0) // only reset bar is not actively charging
                 timeleft = item.recharge_time; // start charge
 
             charging_cows++; // another cow needs recharging

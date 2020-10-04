@@ -12,6 +12,7 @@ public class PlayerManager : MonoBehaviour
     // PRESTIGE vars
     public int tokens;
     public List<int> research;
+    public bool unlocked_milk = false;
 
 
     // manager
@@ -36,6 +37,12 @@ public class PlayerManager : MonoBehaviour
             Destroy(this);
 
         SetUpWorld();
+    }
+
+    private void Update()
+    {
+        if (purchases[2].quantity > 0)
+            unlocked_milk = true;
     }
 
     public void Reset()
