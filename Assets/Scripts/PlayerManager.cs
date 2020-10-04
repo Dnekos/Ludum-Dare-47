@@ -23,10 +23,8 @@ public class PlayerManager : MonoBehaviour
 
     // manager
     public static PlayerManager Inst; // instance
-    
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         if (Inst == null)
         {
@@ -39,10 +37,11 @@ public class PlayerManager : MonoBehaviour
 
         Inst.SetUpWorld();
     }
+    
 
     private void Update()
     {
-        if (Inst.money > purchases[5].price)
+        if (Inst.money > worker.price)
             unlocked_Production = true;
         
         if (purchases[2].quantity > 0)
@@ -55,7 +54,7 @@ public class PlayerManager : MonoBehaviour
         if (tokens > 0)
             unlocked_tokens = true;
         Inst.SetUpWorld();
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
 
     void SetUpWorld()

@@ -14,8 +14,8 @@ public class Purchasable
     public float growth_rate; // how much price changes
 
     public int first_upgrade_index;
-    public int applied_upgrades = 0
-        ;
+    public int applied_upgrades = 0;
+
     public int Available { get { return quantity - used; } }
 
     public bool Purchase()
@@ -43,7 +43,7 @@ public class Worker : Purchasable
 
         // Create database
         string connection = "URI=file:" + Application.dataPath + "/" + "LD47.db";
-        //Debug.Log(connection);
+        Debug.LogError(connection);
         // Open connection
         IDbConnection dbcon = new SqliteConnection(connection);
         dbcon.Open();
@@ -63,7 +63,7 @@ public class Worker : Purchasable
             growth_rate = float.Parse(reader[3].ToString());
             time_multiplier = float.Parse(reader[6].ToString());
             first_upgrade_index = int.Parse(reader[8].ToString());
-            Debug.Log(first_upgrade_index);
+            Debug.LogError(Name);
         }
 
         // Close connection
