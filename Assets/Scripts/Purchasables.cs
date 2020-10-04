@@ -6,7 +6,7 @@ using System.IO;
 public class Purchasable
 {
     public string Name;
-    int ID;
+    protected int ID;
 
     public int quantity = 0; // how many cows
     public int used = 0; // how many are not working as a hand or being worked on
@@ -14,11 +14,55 @@ public class Purchasable
     public float growth_rate; // how much price changes
     
     public int Available { get { return quantity - used; } }
+
+    public bool Purchase()
+    {
+        if ((int)(price * 100) <= (int)(PlayerManager.Inst.money * 100))
+        {
+            PlayerManager.Inst.money -= (int)(price * 100) * 0.01f;
+            price *= growth_rate;
+            quantity++;
+            return true;
+        }
+        return false;
+    }
 }
 
-public class Worker 
+public class Worker : Purchasable
 {
-    
+    public float time_multiplier;
+
+    public Worker()
+    {
+        quantity = 0;
+        used = 0;
+
+        // Create database
+        string connection = "URI=file:" + Application.dataPath + "/" + "LD47.db";
+        //Debug.Log(connection);
+        // Open connection
+        IDbConnection dbcon = new SqliteConnection(connection);
+        dbcon.Open();
+
+        // Read and print all values in table
+        IDbCommand cmnd_read = dbcon.CreateCommand();
+        IDataReader reader;
+        string query = "SELECT * FROM Purchasables WHERE ID = " + ID;
+        cmnd_read.CommandText = query;
+        reader = cmnd_read.ExecuteReader();
+
+        while (reader.Read())
+        {
+            ID = int.Parse(reader[0].ToString());
+            Name = reader[1].ToString();
+            price = float.Parse(reader[2].ToString());
+            growth_rate = float.Parse(reader[3].ToString());
+            time_multiplier = float.Parse(reader[6].ToString());
+        }
+
+        // Close connection
+        dbcon.Close();
+    }
 }
 
 public class Workspace : Purchasable
@@ -38,7 +82,7 @@ public class Workspace : Purchasable
 
         // Create database
         string connection = "URI=file:" + Application.dataPath + "/" + "LD47.db";
-        Debug.Log(connection);
+        //Debug.Log(connection);
         // Open connection
         IDbConnection dbcon = new SqliteConnection(connection);
         dbcon.Open();
@@ -47,7 +91,7 @@ public class Workspace : Purchasable
         IDbCommand cmnd_read = dbcon.CreateCommand();
         IDataReader reader;
         string query = "SELECT * FROM Purchasables WHERE ID = " + ID;
-        Debug.Log(query);
+        //Debug.Log(query);
         cmnd_read.CommandText = query;
         reader = cmnd_read.ExecuteReader();
 
@@ -67,22 +111,16 @@ public class Workspace : Purchasable
     }
 }
 
-/*public class Cow : Workspace
+public enum Up_Catagory
 {
-    public bool workable; // do cows count as workhands
-    
-    public Cow(int quan = 1)
-    {
-        Name = "Cow";
-        actionphrase = "MILK COW";
-        quantity = quan;
-        workable = false;
-        used = 0;
 
-        price = 1; // default cost
-        growth_rate = 1.15f;
+}
 
-        value = 1;
-        recharge_time = 1;
-    }
-}*/
+public struct Upgrade
+{
+    int ID;
+    string Name;
+    int PurchasableIndex;
+    Up_Catagory Catagory;
+    float multiplier;
+}

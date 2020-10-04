@@ -31,15 +31,11 @@ public class AcquisitionsManager : MonoBehaviour
         }
     }
 
-    public void BuyCow(int index)
+    public void BuyPurchasable(int index)
     {
         Purchasable item = PlayerManager.Inst.purchases[index];
-        if ((int)(item.price*100) <= (int)(PlayerManager.Inst.money*100))
+        if (item.Purchase())
         {
-            PlayerManager.Inst.money -= (int)(item.price * 100) * 0.01f;
-            item.price = item.price * item.growth_rate;
-            item.quantity++;
-
             UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.GetComponentInChildren<Text>().text = 
                 "Buy " + item.Name + "\n$" + item.price.ToString("F2");
         }

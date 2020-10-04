@@ -38,6 +38,7 @@ public class PlayerManager : MonoBehaviour
 
     public void Reset()
     {
+        tokens += (int)Mathf.Pow(money * 0.2f, 0.8f);
         Inst.SetUpWorld();
         SceneManager.LoadScene(0);
     }
@@ -48,24 +49,5 @@ public class PlayerManager : MonoBehaviour
         purchases = new Purchasable[6];
         for (int i = 0; i < purchases.Length; i++)
             purchases[i] = new Workspace(i + 1);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-
-}
-public class Prestige : MonoBehaviour
-{
-    public int tokens;
-    public List<int> research;
-
-    public Prestige()
-    {
-        research = new List<int>();
-        tokens = 0;
     }
 }
