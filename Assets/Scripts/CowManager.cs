@@ -33,7 +33,7 @@ public class CowManager : MonoBehaviour
     {
         if (PlayerManager.Inst.unlocked_milk && MilkTgl)
         {
-            MilkTgl.gameObject.SetActive(true);
+            MoneyTgl.gameObject.SetActive(true);
             MilkTgl.gameObject.SetActive(true);
         }
 
@@ -71,7 +71,7 @@ public class CowManager : MonoBehaviour
         Workspace item = (Workspace)PlayerManager.Inst.purchases[PurchasableIndex];
         if (charging_cows < item.Available && PlayerManager.Inst.milk >= item.milkcost)
         {
-            PlayerManager.Inst.milk -= item.milkcost;
+            PlayerManager.Inst.milk -= item.milkcost; 
 
             if (timeleft <= 0) // only reset bar is not actively charging
                 timeleft = item.recharge_time; // start charge
