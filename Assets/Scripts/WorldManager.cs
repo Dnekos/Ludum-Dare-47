@@ -20,8 +20,10 @@ public class WorldManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (PlayerManager.Inst.money > 15)
+        if (PlayerManager.Inst.unlocked_Production)
             ProductionTab.SetActive(true);
+        if (PlayerManager.Inst.unlocked_Upgrades)
+            UpgradeTab.SetActive(true);
 
         float minutes = Mathf.FloorToInt(currenttime / 60);
         float seconds = Mathf.FloorToInt(currenttime % 60);

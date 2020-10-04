@@ -6,6 +6,12 @@ using UnityEngine.UI;
 public class AcquisitionsManager : MonoBehaviour
 {
     Text CowBuytext;
+
+    [SerializeField]
+    GameObject Upgradeprefab;
+    [SerializeField]
+    Transform UpgradeTab;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +42,12 @@ public class AcquisitionsManager : MonoBehaviour
         Purchasable item = PlayerManager.Inst.purchases[index];
         if (item.Purchase())
         {
+            if (PlayerManager.Inst.purchases[index].quantity == 5)
+            {
+                PlayerManager.Inst.unlocked_Upgrades = true;
+                Upgradeprefab.GetComponent<UpgradeManager>().index = item.first_upgrade_index;
+                Instantiate(Upgradeprefab, UpgradeTab);
+            }
             UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.GetComponentInChildren<Text>().text = 
                 "Buy " + item.Name + "\n$" + item.price.ToString("F2");
         }
