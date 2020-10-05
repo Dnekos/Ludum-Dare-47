@@ -85,7 +85,7 @@ public class CowManager : MonoBehaviour
     {
         Workspace item = (Workspace)PlayerManager.Inst.purchases[PurchasableIndex];
 
-        item.making_milk = !item.making_milk;
+        item.making_milk = tog;
         /*if (item.making_milk)
         {
             MoneyTgl.isOn = true;

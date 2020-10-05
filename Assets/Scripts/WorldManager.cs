@@ -19,6 +19,7 @@ public class WorldManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(currenttime);
         if (PlayerManager.Inst.unlocked_Production)
             ProductionTab.SetActive(true);
         if (PlayerManager.Inst.unlocked_Upgrades)
@@ -45,7 +46,7 @@ public class WorldManager : MonoBehaviour
             Countdown.color = Color.red;
         if (currenttime > 0)
             currenttime -= Time.deltaTime;
-        else if (game_end)
+        else
         {
             EndTab.SetActive(true);
             EndTab.transform.SetAsLastSibling();
@@ -69,7 +70,6 @@ public class WorldManager : MonoBehaviour
 
         endgame.SetActive(true);
         endgame.transform.SetAsLastSibling();
-
     }
 
     public void GoToTab()
