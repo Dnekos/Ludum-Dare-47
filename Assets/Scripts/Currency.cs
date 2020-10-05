@@ -7,6 +7,7 @@ public class Currency
     public KeyValuePair<float, int> value;
     public Currency(float number, int power)
     {
+        Debug.Log("creating currency" + number + " " + power);
         value = new KeyValuePair<float, int>(number, power);
     }
     public Currency(float number)
@@ -18,7 +19,9 @@ public class Currency
             newnum = number / 10;
             pow++;
         }
-            value = new KeyValuePair<float, int>((int)(newnum * 100) / 100, pow);
+        Debug.Log("creating currency" + number + " into " + (int)(newnum * 100) / 100 + " "+ pow);
+
+        value = new KeyValuePair<float, int>((int)(newnum * 100) / 100, pow);
     }
     public string DisplayNumber()
     {

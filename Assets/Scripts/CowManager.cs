@@ -65,10 +65,13 @@ public class CowManager : MonoBehaviour
 
     public void ProduceClick()
     {
+        Debug.Log("clicked");
         Workspace item = (Workspace)PlayerManager.Inst.purchases[PurchasableIndex];
         if (charging_cows < item.Available && PlayerManager.Inst.milk < new Currency((item.milkcost)))
         {
-            PlayerManager.Inst.milk = PlayerManager.Inst.milk - new Currency((float)item.milkcost); 
+            Debug.Log("first comparison");
+            PlayerManager.Inst.milk = PlayerManager.Inst.milk - new Currency((float)item.milkcost);
+            Debug.Log("first subraction");
 
             if (timeleft <= 0) // only reset bar is not actively charging
                 timeleft = item.recharge_time; // start charge
