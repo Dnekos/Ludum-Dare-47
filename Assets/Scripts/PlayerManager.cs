@@ -10,6 +10,7 @@ public class PlayerManager : MonoBehaviour
     public Workspace[] purchases;
     public Worker worker;
     public float milk;
+    public float[] automated_time_left;
     //public List<Upgrade> upgrades;
 
     // PRESTIGE vars
@@ -46,6 +47,19 @@ public class PlayerManager : MonoBehaviour
         
         if (purchases[2].quantity > 0)
             unlocked_milk = true;
+        if (WorldManager.currenttime > 0)
+            for (int i = 0; i < automated_time_left.Length;i++)
+            {
+                if (automated_time_left[i] < 0 && purchases[i].used > 0)
+                {
+                    automated_time_left[i] = purchases[i].recharge_time * worker.time_multiplier;
+                    if (purchases[i].making_milk)
+                        milk += purchases[i].value * purchases[i].used;
+                    else
+                        money += purchases[i].value * purchases[i].used;
+                }
+                automated_time_left[i] -= Time.deltaTime;
+            }
     }
 
     public void Reset()
@@ -62,6 +76,7 @@ public class PlayerManager : MonoBehaviour
         money = 0;
         milk = 0;
         purchases = new Workspace[6];
+        automated_time_left = new float[6];
         worker = new Worker();
         //upgrades = new List<Upgrade>();
 

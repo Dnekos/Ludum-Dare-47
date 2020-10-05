@@ -28,7 +28,10 @@ public class ProductionManager : MonoBehaviour
             Purchasable item = PlayerManager.Inst.purchases[i];
 
             if (item.quantity > 0)
+            {
                 transform.GetChild(i).gameObject.SetActive(true);
+                transform.GetChild(i).GetChild(2).GetComponent<Text>().text = item.quantity + "\n" + item.used;
+            }
             else
                 transform.GetChild(i).gameObject.SetActive(false);
         }
@@ -55,4 +58,25 @@ public class ProductionManager : MonoBehaviour
         transform.parent.SetAsLastSibling();
     }
 
+    public void AddWorker(int index)
+    {
+        Worker workers = PlayerManager.Inst.worker;
+        Workspace item = PlayerManager.Inst.purchases[index];
+        if (workers.used < workers.quantity && item.used < item.quantity)
+        {
+            workers.used++;
+            PlayerManager.Inst.purchases[index].used++;
+        }
+    }
+
+    public void RemoveWorker(int index)
+    {
+        Worker workers = PlayerManager.Inst.worker;
+        Workspace item = PlayerManager.Inst.purchases[index];
+        if (workers.used > 0 && item.used > 0)
+        {
+            workers.used--;
+            PlayerManager.Inst.purchases[index].used--;
+        }
+    }
 }

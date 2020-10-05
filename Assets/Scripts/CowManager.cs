@@ -9,12 +9,10 @@ public class CowManager : MonoBehaviour
     [SerializeField]
     int PurchasableIndex = 0;
     public float timeleft = 0f;
-    [SerializeField]
-    bool producing_milk;
     int charging_cows = 0;
 
     [SerializeField]
-    Toggle MilkTgl, MoneyTgl;
+    GameObject Toggler;
     Text buttontxt,bartxt;
     Transform bartransform;
 
@@ -31,10 +29,9 @@ public class CowManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (PlayerManager.Inst.unlocked_milk && MilkTgl)
+        if (PlayerManager.Inst.unlocked_milk && Toggler)
         {
-            MoneyTgl.gameObject.SetActive(true);
-            MilkTgl.gameObject.SetActive(true);
+            Toggler.SetActive(true);
         }
 
         Workspace item = (Workspace)PlayerManager.Inst.purchases[PurchasableIndex];
@@ -77,7 +74,7 @@ public class CowManager : MonoBehaviour
                 timeleft = item.recharge_time; // start charge
 
             charging_cows++; // another cow needs recharging
-            if (producing_milk)
+            if (item.making_milk)
                 PlayerManager.Inst.milk += item.value;
             else
                 PlayerManager.Inst.money += item.value; // add value;
@@ -86,8 +83,10 @@ public class CowManager : MonoBehaviour
    
     public void ToggleMilk()
     {
-        producing_milk = !producing_milk;
-        if (producing_milk)
+        Workspace item = (Workspace)PlayerManager.Inst.purchases[PurchasableIndex];
+
+        item.making_milk = !item.making_milk;
+        /*if (item.making_milk)
         {
             MoneyTgl.isOn = true;
             MilkTgl.isOn = false;
@@ -96,6 +95,6 @@ public class CowManager : MonoBehaviour
         {
             MoneyTgl.isOn = false;
             MilkTgl.isOn = true;
-        }
+        }*/
     }
 }

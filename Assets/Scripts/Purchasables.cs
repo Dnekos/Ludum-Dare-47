@@ -74,6 +74,7 @@ public class Worker : Purchasable
 public class Workspace : Purchasable
 {
     public int milkcost;
+    public bool making_milk = false;
 
     public float value; // how much they produce per click
     public float recharge_time; // how long till can be clicked again

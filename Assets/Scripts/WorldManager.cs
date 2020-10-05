@@ -9,13 +9,9 @@ public class WorldManager : MonoBehaviour
     GameObject ProductionTab, UpgradeTab, ResearchTab, EndTab;
     [SerializeField]
     Text Countdown;
-    
-    float currenttime = 90;
+
+    public static float currenttime = 90;
     // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
@@ -24,22 +20,43 @@ public class WorldManager : MonoBehaviour
             ProductionTab.SetActive(true);
         if (PlayerManager.Inst.unlocked_Upgrades)
             UpgradeTab.SetActive(true);
+        if (PlayerManager.Inst.tokens > 0)
+        {
+            ResearchTab.SetActive(true);
 
-        float minutes = Mathf.FloorToInt(currenttime / 60);
-        float seconds = Mathf.FloorToInt(currenttime % 60);
+            if (currenttime != 0)
+            {
+                float minutes = Mathf.FloorToInt(currenttime / 60);
+                float seconds = Mathf.FloorToInt(currenttime % 60);
+                Countdown.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+            }
+            else
+                Countdown.text = "00:00";
+        }
+        else
+        {
+            Countdown.text = "";
+        }
 
-        Countdown.text = string.Format("{0:00}:{1:00}", minutes, seconds);
-
+        if (currenttime < 10)
+            Countdown.color = Color.red;
         if (currenttime > 0)
             currenttime -= Time.deltaTime;
         else
         {
             EndTab.SetActive(true);
             EndTab.transform.SetAsLastSibling();
+
+            EndTab.transform.GetChild(2).GetChild(0).GetComponent<Text>().text = "Once more into the Breach...\nYou recieve "+(int)Mathf.Pow(PlayerManager.Inst.money * 0.2f, 0.8f)+" Crystalized Milk";
         }
     }
     public void EndTheWorld()
     {
         PlayerManager.Inst.Reset();
+    }
+
+    public void GoToTab()
+    {
+        UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.transform.parent.SetAsLastSibling();
     }
 }

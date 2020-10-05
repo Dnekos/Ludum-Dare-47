@@ -47,20 +47,25 @@ public class UpgradeManager : MonoBehaviour
 
     public void OnClick()
     {
-        PlayerManager.Inst.ApplyUpgrade(heldUpgrade);
-        int num_upgrades = PlayerManager.Inst.purchases[heldUpgrade.PurchasableIndex].applied_upgrades;
+        if (PlayerManager.Inst.money >= price)
+        {
+            PlayerManager.Inst.money -= price;
 
-        ButtonPrefab.GetComponent<UpgradeManager>().price = price / Mathf.Pow(num_upgrades - 1, 0.7f) * Mathf.Pow(num_upgrades, 0.7f);
-        if (heldUpgrade.Unlock1 != 0)
-        {
-            ButtonPrefab.GetComponent<UpgradeManager>().index = heldUpgrade.Unlock1;
-            Instantiate(ButtonPrefab, transform.parent);
+            PlayerManager.Inst.ApplyUpgrade(heldUpgrade);
+            int num_upgrades = PlayerManager.Inst.purchases[heldUpgrade.PurchasableIndex].applied_upgrades;
+
+            ButtonPrefab.GetComponent<UpgradeManager>().price = price / Mathf.Pow(num_upgrades - 1, 1.2f) * Mathf.Pow(num_upgrades, 1.2f);
+            if (heldUpgrade.Unlock1 != 0)
+            {
+                ButtonPrefab.GetComponent<UpgradeManager>().index = heldUpgrade.Unlock1;
+                Instantiate(ButtonPrefab, transform.parent);
+            }
+            if (heldUpgrade.Unlock2 != 0)
+            {
+                ButtonPrefab.GetComponent<UpgradeManager>().index = heldUpgrade.Unlock2;
+                Instantiate(ButtonPrefab, transform.parent);
+            }
+            Destroy(gameObject);
         }
-        if (heldUpgrade.Unlock2 != 0)
-        {
-            ButtonPrefab.GetComponent<UpgradeManager>().index = heldUpgrade.Unlock2;
-            Instantiate(ButtonPrefab, transform.parent);
-        }
-        Destroy(gameObject);
     }
 }

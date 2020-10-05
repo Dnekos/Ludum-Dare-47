@@ -49,9 +49,4 @@ public class AcquisitionsManager : MonoBehaviour
                 "Buy " + item.Name + "\n$" + item.price.ToString("F2");
         }
     }
-
-    public void GoToAcquisitions()
-    {
-        transform.parent.SetAsLastSibling();
-    }
 }
