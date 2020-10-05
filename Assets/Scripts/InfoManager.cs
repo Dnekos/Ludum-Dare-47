@@ -21,7 +21,7 @@ public class InfoManager : MonoBehaviour
             Production.SetActive(true);
         if (PlayerManager.Inst.unlocked_Upgrades)
             Upgrade.SetActive(true);
-        if (PlayerManager.Inst.tokens > 0)
+        if (PlayerManager.Inst.tokens > new Currency(0,0))
         {
             EotW.SetActive(true);
             Research.SetActive(true);

@@ -19,12 +19,11 @@ public class WorldManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(currenttime);
         if (PlayerManager.Inst.unlocked_Production)
             ProductionTab.SetActive(true);
         if (PlayerManager.Inst.unlocked_Upgrades)
             UpgradeTab.SetActive(true);
-        if (PlayerManager.Inst.tokens > 0)
+        if (PlayerManager.Inst.tokens > new Currency(0,0))
         {
             ResearchTab.SetActive(true);
 
@@ -46,12 +45,12 @@ public class WorldManager : MonoBehaviour
             Countdown.color = Color.red;
         if (currenttime > 0)
             currenttime -= Time.deltaTime;
-        else
+        else if (endgame.activeSelf == false)
         {
             EndTab.SetActive(true);
             EndTab.transform.SetAsLastSibling();
 
-            EndTab.transform.GetChild(2).GetChild(0).GetComponent<Text>().text = "You recieve "+(int)Mathf.Pow(PlayerManager.Inst.money * 0.2f, 0.8f)+" Crystalized Milk";
+            EndTab.transform.GetChild(2).GetChild(0).GetComponent<Text>().text = "You recieve "+(PlayerManager.Inst.money * 0.2f).Pow(0.8f).DisplayNumber()+" Crystalized Milk";
         }
     }
     public void EndTheWorld()

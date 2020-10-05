@@ -19,7 +19,7 @@ public class AcquisitionsManager : MonoBehaviour
         for (int i = 0; i < transform.childCount; i++)
             transform.GetChild(i).GetChild(0).GetComponent<Text>().text =
                 "Buy " + PlayerManager.Inst.purchases[i].Name + 
-                "\n$" + PlayerManager.Inst.purchases[i].price.ToString("F2");
+                "\n$" + PlayerManager.Inst.purchases[i].price.DisplayNumber();
     }
 
     // Update is called once per frame
@@ -35,7 +35,7 @@ public class AcquisitionsManager : MonoBehaviour
                 transform.GetChild(i).gameObject.SetActive(false);
         }
 
-        if ((PlayerManager.Inst.purchases[5].quantity > 0 || PlayerManager.Inst.money == 2000000) && got_rocket == false)
+        if ((PlayerManager.Inst.purchases[5].quantity > 0 || PlayerManager.Inst.money == new Currency(2,6)) && got_rocket == false)
         {
             Debug.Log("Rocket Spawn");
             Upgradeprefab.GetComponent<UpgradeManager>().index = -1;
@@ -52,7 +52,7 @@ public class AcquisitionsManager : MonoBehaviour
         {
             UnlockUpgrades(item);
             UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.GetComponentInChildren<Text>().text = 
-                "Buy " + item.Name + "\n$" + item.price.ToString("F2");
+                "Buy " + item.Name + "\n$" + item.price.DisplayNumber();
         }
     }
 

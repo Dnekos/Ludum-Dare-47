@@ -14,8 +14,10 @@ public class ResearchManager : MonoBehaviour
 
     public void BuyResearch(int index)
     {
-        if (Mathf.Pow(PlayerManager.Inst.research[index].Rank + 1, 2) <= PlayerManager.Inst.tokens)
+        Currency cost = new Currency(Mathf.Pow(PlayerManager.Inst.research[index].Rank + 1, 2));
+        if (cost <= PlayerManager.Inst.tokens)
         {
+            PlayerManager.Inst.tokens = PlayerManager.Inst.tokens - cost;
             PlayerManager.Inst.research[index].Rank++;
             UpdateDescription(index);
         }

@@ -7,6 +7,6 @@ public class MoneyDisplay : MonoBehaviour
 {
     void Update()
     {
-        GetComponent<Text>().text = "$" + PlayerManager.Inst.money.ToString("F2");
+        GetComponent<Text>().text = "$" + PlayerManager.Inst.money.DisplayNumber();
     }
 }
