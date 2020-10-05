@@ -43,7 +43,7 @@ public class Worker : Purchasable
 
         // Create database
         string connection = "URI=file:" + Application.dataPath + "/" + "LD47.db";
-        Debug.LogError(connection);
+        Debug.Log(connection);
         // Open connection
         IDbConnection dbcon = new SqliteConnection(connection);
         dbcon.Open();
@@ -63,7 +63,6 @@ public class Worker : Purchasable
             growth_rate = float.Parse(reader[3].ToString());
             time_multiplier = float.Parse(reader[6].ToString());
             first_upgrade_index = int.Parse(reader[8].ToString());
-            Debug.LogError(Name);
         }
 
         // Close connection
@@ -127,7 +126,8 @@ public enum Up_Catagory
     Value,
     Time,
     Price,
-    MilkCost
+    MilkCost,
+    WinGame
 }
 
 public struct Upgrade
@@ -141,6 +141,19 @@ public struct Upgrade
 
     public Upgrade(int index)
     {
+        if (index == -1)
+        {
+            ID = index;
+            Name = "Rocket Ship";
+            PurchasableIndex = -1;
+            Catagory = Up_Catagory.WinGame;
+            multiplier = 0;
+            Unlock1 = 0;
+            Unlock2 = 0;
+            return;
+        }
+
+
         // defaults
         ID = index;
         Name = "";
@@ -149,7 +162,6 @@ public struct Upgrade
         multiplier = 0; 
         Unlock1 = 0;
         Unlock2 = 0;
-
 
         // Create database
         string connection = "URI=file:" + Application.dataPath + "/" + "LD47.db";
@@ -178,5 +190,53 @@ public struct Upgrade
 
         // Close connection
         dbcon.Close();
+    }
+}
+
+public struct Research
+{
+    public int ID;
+    public string Name;
+    public int Rank;
+
+    public Research(int index)
+    {
+        ID = index;
+        Rank = 0;
+        Name = "UPGRADE_NAME";
+
+        switch(index)
+        {
+            case 0:
+                Name = "Cow Portal";
+                break;
+            case 1:
+                Name = "Goat Portal";
+                break;
+            case 2:
+                Name = "Cream Portal";
+                break;
+            case 3:
+                Name = "Cheese Portal";
+                break;
+            case 4:
+                Name = "Ice Cream Portal";
+                break;
+            case 5:
+                Name = "Yogurt Portal";
+                break;
+            case 6:
+                Name = "Farmhand Portal";
+                break;
+            case 7:
+                Name = "Deep Pockets";
+                break;
+            case 8:
+                Name = "Reverse Expiration Date";
+                break;
+            case 9:
+                Name = "Flux Capacitor";
+                break;
+        }
     }
 }

@@ -14,8 +14,8 @@ public class PlayerManager : MonoBehaviour
     //public List<Upgrade> upgrades;
 
     // PRESTIGE vars
-    public int tokens;
-    public List<int> research;
+    public int tokens = 0;
+    public Research[] research;
     public bool unlocked_milk = false; // convert these to bitmap at some point
     public bool unlocked_tokens = false;
     public bool unlocked_Production = false;
@@ -31,6 +31,13 @@ public class PlayerManager : MonoBehaviour
         {
             Debug.Log("creating Inst");
             Inst = this;
+
+            money = 0;
+            milk = 0;
+            research = new Research[10];
+            for (int i = 0; i < research.Length; i++)
+                research[i] = new Research(i);
+
             DontDestroyOnLoad(Inst);
         }
         else
@@ -47,6 +54,7 @@ public class PlayerManager : MonoBehaviour
         
         if (purchases[2].quantity > 0)
             unlocked_milk = true;
+
         if (WorldManager.currenttime > 0)
             for (int i = 0; i < automated_time_left.Length;i++)
             {
@@ -73,20 +81,36 @@ public class PlayerManager : MonoBehaviour
 
     void SetUpWorld()
     {
-        money = 0;
-        milk = 0;
+        //research 7-8, money & milk
+        money = money * 0.02f * research[7].Rank;
+        milk = milk * 0.02f * research[8].Rank;
+
         purchases = new Workspace[6];
         automated_time_left = new float[6];
         worker = new Worker();
-        //upgrades = new List<Upgrade>();
 
-        for (int i = 0; i < purchases.Length; i++)
+        for (int i = 0; i < purchases.Length; i++) // researches 0-5
+        {
             purchases[i] = new Workspace(i + 1);
+            purchases[i].quantity += (int)Mathf.Pow(2, research[i].Rank - 1);
+            GameObject.Find("AcquisitionsGrid").GetComponent<AcquisitionsManager>().UnlockUpgrades(purchases[i]);
+        }
+         // research 6
+        worker.quantity = Mathf.CeilToInt(Mathf.Pow(2, research[6].Rank - 1) * 0.5f);
+        GameObject.Find("AcquisitionsGrid").GetComponent<AcquisitionsManager>().UnlockUpgrades(worker);
+
+        WorldManager.currenttime = 90 + 5 * research[9].Rank;
+
     }
 
     public void ApplyUpgrade(Upgrade upgrade)
     {
-        if (upgrade.PurchasableIndex == 6)
+        if (upgrade.PurchasableIndex == -1)
+        {
+            GameObject.Find("Canvas").GetComponent<WorldManager>().Escape();
+        }
+        else if (upgrade.PurchasableIndex == 6)
+        {
             switch (upgrade.Catagory)
             {
                 case Up_Catagory.Time:
@@ -96,7 +120,10 @@ public class PlayerManager : MonoBehaviour
                     worker.price *= upgrade.multiplier;
                     break;
             }
+            worker.applied_upgrades++;
+        }
         else
+        {
             switch (upgrade.Catagory)
             {
                 case Up_Catagory.Value:
@@ -114,5 +141,7 @@ public class PlayerManager : MonoBehaviour
                         (int)(purchases[upgrade.PurchasableIndex].milkcost * upgrade.multiplier);
                     break;
             }
+            purchases[upgrade.PurchasableIndex].applied_upgrades++;
+        }
     }
 }

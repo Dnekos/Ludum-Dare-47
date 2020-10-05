@@ -11,15 +11,28 @@ public class UpgradeManager : MonoBehaviour
     public int index;
 
     float price;
+    public float base_price;
+
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log(index + "=index");
-        Purchasable item = PlayerManager.Inst.purchases[heldUpgrade.PurchasableIndex];
-        if (item.applied_upgrades == 0)
-            price = item.price * 2.5f;
- 
+        Purchasable item;
         heldUpgrade = new Upgrade(index);
+
+        if (heldUpgrade.Catagory == Up_Catagory.WinGame)
+            price = 2000000;
+        else if (PlayerManager.Inst.purchases[heldUpgrade.PurchasableIndex].applied_upgrades == 0)
+        {
+            item = PlayerManager.Inst.purchases[heldUpgrade.PurchasableIndex];
+            price = item.price * 2.5f;
+            base_price = price;
+        }
+        else
+        {
+            item = PlayerManager.Inst.purchases[heldUpgrade.PurchasableIndex];
+            price = base_price * Mathf.Pow(item.applied_upgrades, 2.5f);
+        }
+
         switch (heldUpgrade.Catagory)
         {
             case Up_Catagory.Value:
@@ -42,6 +55,9 @@ public class UpgradeManager : MonoBehaviour
                     PlayerManager.Inst.purchases[heldUpgrade.PurchasableIndex].Name + " cost " + 
                     (int)((1 - heldUpgrade.multiplier) * 100) + "% less milk\n$" + price.ToString("F2");
                 break;
+            case Up_Catagory.WinGame:
+                GetComponentInChildren<Text>().text = heldUpgrade.Name + ":\nEscape armageddon\n$" + price.ToString("F2");
+                break;
         }
     }
 
@@ -52,9 +68,10 @@ public class UpgradeManager : MonoBehaviour
             PlayerManager.Inst.money -= price;
 
             PlayerManager.Inst.ApplyUpgrade(heldUpgrade);
+            
             int num_upgrades = PlayerManager.Inst.purchases[heldUpgrade.PurchasableIndex].applied_upgrades;
+            ButtonPrefab.GetComponent<UpgradeManager>().base_price = base_price;
 
-            ButtonPrefab.GetComponent<UpgradeManager>().price = price / Mathf.Pow(num_upgrades - 1, 1.2f) * Mathf.Pow(num_upgrades, 1.2f);
             if (heldUpgrade.Unlock1 != 0)
             {
                 ButtonPrefab.GetComponent<UpgradeManager>().index = heldUpgrade.Unlock1;

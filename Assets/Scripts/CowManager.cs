@@ -81,7 +81,7 @@ public class CowManager : MonoBehaviour
         }
     }
    
-    public void ToggleMilk()
+    public void ToggleMilk(bool tog)
     {
         Workspace item = (Workspace)PlayerManager.Inst.purchases[PurchasableIndex];
 

@@ -10,6 +10,8 @@ public class AcquisitionsManager : MonoBehaviour
     [SerializeField]
     Transform UpgradeTab;
 
+    bool got_rocket = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +34,15 @@ public class AcquisitionsManager : MonoBehaviour
             else
                 transform.GetChild(i).gameObject.SetActive(false);
         }
+
+        if ((PlayerManager.Inst.purchases[5].quantity > 0 || PlayerManager.Inst.money == 2000000) && got_rocket == false)
+        {
+            Debug.Log("Rocket Spawn");
+            Upgradeprefab.GetComponent<UpgradeManager>().index = -1;
+            Instantiate(Upgradeprefab, UpgradeTab);
+            got_rocket = true;
+        }
+
     }
 
     public void BuyPurchasable(int index)
@@ -39,14 +50,19 @@ public class AcquisitionsManager : MonoBehaviour
         Purchasable item = PlayerManager.Inst.purchases[index];
         if (item.Purchase())
         {
-            if (item.quantity == 5)
-            {
-                PlayerManager.Inst.unlocked_Upgrades = true;
-                Upgradeprefab.GetComponent<UpgradeManager>().index = item.first_upgrade_index;
-                Instantiate(Upgradeprefab, UpgradeTab);
-            }
+            UnlockUpgrades(item);
             UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.GetComponentInChildren<Text>().text = 
                 "Buy " + item.Name + "\n$" + item.price.ToString("F2");
+        }
+    }
+
+    public void UnlockUpgrades(Purchasable item)
+    {
+        if (item.quantity == 5)
+        {
+            PlayerManager.Inst.unlocked_Upgrades = true;
+            Upgradeprefab.GetComponent<UpgradeManager>().index = item.first_upgrade_index;
+            Instantiate(Upgradeprefab, UpgradeTab);
         }
     }
 }
