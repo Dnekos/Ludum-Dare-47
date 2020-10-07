@@ -91,8 +91,10 @@ public class PlayerManager : MonoBehaviour
 
         for (int i = 0; i < purchases.Length; i++) // researches 0-5
         {
-            int curr_quan = purchases[i].quantity;
+            int curr_quan = (purchases[i] != null) ? purchases[i].quantity : 0;
+
             purchases[i] = new Workspace(i + 1);
+
             purchases[i].quantity += Mathf.Min((int)Mathf.Pow(2, research[i].Rank - 1), curr_quan);
             GameObject.Find("AcquisitionsGrid").GetComponent<AcquisitionsManager>().UnlockUpgrades(purchases[i]);
         }

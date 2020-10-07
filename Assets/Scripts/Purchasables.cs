@@ -99,7 +99,7 @@ public class Workspace : Purchasable
         IDbCommand cmnd_read = dbcon.CreateCommand();
         IDataReader reader;
         string query = "SELECT * FROM Purchasables WHERE ID = " + ID;
-        //Debug.Log(query);
+        Debug.Log(query);
         cmnd_read.CommandText = query;
         reader = cmnd_read.ExecuteReader();
 
@@ -114,6 +114,7 @@ public class Workspace : Purchasable
             recharge_time = float.Parse(reader[6].ToString());
             milkcost = int.Parse(reader[7].ToString());
             first_upgrade_index = int.Parse(reader[8].ToString());
+            Debug.Log(reader[0].ToString());
         }
 
         // Close connection
