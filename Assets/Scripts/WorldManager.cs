@@ -23,11 +23,11 @@ public class WorldManager : MonoBehaviour
             ProductionTab.SetActive(true);
         if (PlayerManager.Inst.unlocked_Upgrades)
             UpgradeTab.SetActive(true);
-        if (PlayerManager.Inst.tokens > 0)
+        if (PlayerManager.Inst.unlocked_tokens)
         {
             ResearchTab.SetActive(true);
 
-            if (currenttime != 0)
+            if (currenttime > 0)
             {
                 float minutes = Mathf.FloorToInt(currenttime / 60);
                 float seconds = Mathf.FloorToInt(currenttime % 60);

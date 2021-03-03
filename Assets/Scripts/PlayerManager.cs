@@ -85,20 +85,28 @@ public class PlayerManager : MonoBehaviour
         money = money * 0.02f * research[7].Rank;
         milk = milk * 0.02f * research[8].Rank;
 
+
+        int[] quantities = new int[6];
+        for (int i = 0; i < quantities.Length; i++)
+        {
+            if (purchases != null)
+                quantities[i] = purchases[i].quantity;
+            else
+                quantities[i] = 0;
+        }
         purchases = new Workspace[6];
         automated_time_left = new float[6];
         worker = new Worker();
 
         for (int i = 0; i < purchases.Length; i++) // researches 0-5
         {
-            int curr_quan = (purchases[i] != null) ? purchases[i].quantity : 0;
-
             purchases[i] = new Workspace(i + 1);
 
-            purchases[i].quantity += Mathf.Min((int)Mathf.Pow(2, research[i].Rank - 1), curr_quan);
+            purchases[i].quantity += Mathf.Min((int)Mathf.Pow(2, research[i].Rank - 1), quantities[i]);
             GameObject.Find("AcquisitionsGrid").GetComponent<AcquisitionsManager>().UnlockUpgrades(purchases[i]);
         }
-         // research 6
+        
+        // research 6
         worker.quantity = Mathf.CeilToInt(Mathf.Pow(2, research[6].Rank - 1) * 0.5f);
         GameObject.Find("AcquisitionsGrid").GetComponent<AcquisitionsManager>().UnlockUpgrades(worker);
 

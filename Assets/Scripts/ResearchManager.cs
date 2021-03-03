@@ -29,7 +29,7 @@ public class ResearchManager : MonoBehaviour
 
         transform.GetChild(i).GetChild(0).GetComponent<Text>().text =
             research.Name + " Rank " + (research.Rank + 1) +
-            ":\n" + Mathf.Pow(research.Rank + 1, 2) + "Crystals";
+            ":\n" + Mathf.Pow(research.Rank + 1, 2) + " Crystals";
 
         switch (i) // description
         {
