@@ -14,10 +14,10 @@ public class ResearchManager : MonoBehaviour
 
     public void BuyResearch(int index)
     {
-        Currency cost = new Currency(Mathf.Pow(PlayerManager.Inst.research[index].Rank + 1, 2));
+        float cost = Mathf.Pow(PlayerManager.Inst.research[index].Rank + 1, 2);
         if (cost <= PlayerManager.Inst.tokens)
         {
-            PlayerManager.Inst.tokens = PlayerManager.Inst.tokens - cost;
+            PlayerManager.Inst.tokens -= (int)cost;
             PlayerManager.Inst.research[index].Rank++;
             UpdateDescription(index);
         }
@@ -29,7 +29,7 @@ public class ResearchManager : MonoBehaviour
 
         transform.GetChild(i).GetChild(0).GetComponent<Text>().text =
             research.Name + " Rank " + (research.Rank + 1) +
-            ":\n" + Mathf.Pow(research.Rank + 1, 2) + "Crystals";
+            ":\n" + Mathf.Pow(research.Rank + 1, 2) + " Crystals";
 
         switch (i) // description
         {

@@ -23,11 +23,11 @@ public class WorldManager : MonoBehaviour
             ProductionTab.SetActive(true);
         if (PlayerManager.Inst.unlocked_Upgrades)
             UpgradeTab.SetActive(true);
-        if (PlayerManager.Inst.tokens > new Currency(0,0))
+        if (PlayerManager.Inst.unlocked_tokens)
         {
             ResearchTab.SetActive(true);
 
-            if (currenttime != 0)
+            if (currenttime > 0)
             {
                 float minutes = Mathf.FloorToInt(currenttime / 60);
                 float seconds = Mathf.FloorToInt(currenttime % 60);
@@ -50,7 +50,7 @@ public class WorldManager : MonoBehaviour
             EndTab.SetActive(true);
             EndTab.transform.SetAsLastSibling();
 
-            EndTab.transform.GetChild(2).GetChild(0).GetComponent<Text>().text = "You recieve "+(PlayerManager.Inst.money * 0.2f).Pow(0.8f).DisplayNumber()+" Crystalized Milk";
+            EndTab.transform.GetChild(2).GetChild(0).GetComponent<Text>().text = "You recieve "+(int)Mathf.Pow(PlayerManager.Inst.money * 0.2f, 0.8f)+" Crystalized Milk";
         }
     }
     public void EndTheWorld()
