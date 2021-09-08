@@ -13,7 +13,7 @@ public class WorldManager : MonoBehaviour
 
     bool game_end = false;
 
-    public static float currenttime = 10;
+    public static float currenttime = 15;
     // Start is called before the first frame update
 
     // Update is called once per frame
@@ -49,13 +49,14 @@ public class WorldManager : MonoBehaviour
         if (currenttime > 0)
         {
             currenttime -= Time.deltaTime;
+            Debug.Log(currenttime);
         }
         else if (endgame.activeSelf == false)
         {
             EndTab.SetActive(true);
             EndTab.transform.SetAsLastSibling();
 
-            EndTab.transform.Find("Crystal Milk Text").GetComponent<Text>().text = "You recieve " + (int)Mathf.Pow((float)PlayerManager.Inst.money * 0.2f, 0.8f) + " Crystalized Milk";
+            EndTab.transform.GetComponentInChildren<Text>().text = "You recieve " + (int)Mathf.Pow((float)PlayerManager.Inst.money * 0.2f, 0.8f) + " Crystalized Milk";
         }
     }
     public void EndTheWorld()

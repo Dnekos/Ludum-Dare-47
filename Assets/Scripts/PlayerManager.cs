@@ -5,7 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class PlayerManager : MonoBehaviour
 {
-    // Standard vars
+    [SerializeField]
+    float baseworldlength = 90;
+
+    [Header("Standard Variables")]
     public double money;
     public Workspace[] purchases;
     public Worker worker;
@@ -82,7 +85,7 @@ public class PlayerManager : MonoBehaviour
 
     public void Reset()
     {
-        tokens = tokens + Mathf.Pow((float)money * 0.2f, 0.8f);
+        tokens = Mathf.Floor((float)tokens + Mathf.Pow((float)money * 0.2f, 0.8f));
         if (tokens > 0)
             unlocked_tokens = true;
         Inst.SetUpWorld();
@@ -120,7 +123,7 @@ public class PlayerManager : MonoBehaviour
         worker.quantity = Mathf.CeilToInt(Mathf.Pow(2, research[6].Rank - 1) * 0.5f);
         GameObject.Find("AcquisitionsGrid").GetComponent<AcquisitionsManager>().UnlockUpgrades(worker);
 
-        WorldManager.currenttime = 90 + 5 * research[9].Rank;
+        WorldManager.currenttime = baseworldlength + 5 * research[9].Rank;
 
     }
 
