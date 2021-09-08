@@ -24,6 +24,7 @@ public class Purchasable
         {
             PlayerManager.Inst.money = PlayerManager.Inst.money - (price * 100 * 0.01);
             price *= growth_rate;
+            price = Mathf.Round((float)price * 100) / 100;
             quantity++;
             return true;
         }

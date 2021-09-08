@@ -38,25 +38,25 @@ public class UpgradeManager : MonoBehaviour
             case Up_Catagory.Value:
                 GetComponentInChildren<Text>().text = heldUpgrade.Name + ":\n" +
                     PlayerManager.Inst.purchases[heldUpgrade.PurchasableIndex].Name + "s worth " + 
-                    (int)((heldUpgrade.multiplier - 1) *100) + "% more\n$"+price;
+                    (int)((heldUpgrade.multiplier - 1) *100) + "% more\n"+price.ToString("C");
                 break;
             case Up_Catagory.Time:
                 GetComponentInChildren<Text>().text = heldUpgrade.Name + ":\n" + 
                     PlayerManager.Inst.purchases[heldUpgrade.PurchasableIndex].Name + "s are " + 
-                    (int)((1 - heldUpgrade.multiplier) * 100) + "% faster\n$" + price; // technically should be "NAME takes PERCENT less time"
+                    (int)((1 - heldUpgrade.multiplier) * 100) + "% faster\n" + price.ToString("C"); // technically should be "NAME takes PERCENT less time"
                 break;
             case Up_Catagory.Price:
                 GetComponentInChildren<Text>().text = heldUpgrade.Name + ":\n" + 
                     PlayerManager.Inst.purchases[heldUpgrade.PurchasableIndex].Name + "s cost " + 
-                    (int)((1 - heldUpgrade.multiplier) * 100) + "% less\n$" + price;
+                    (int)((1 - heldUpgrade.multiplier) * 100) + "% less\n" + price.ToString("C");
                 break;
             case Up_Catagory.MilkCost:
                 GetComponentInChildren<Text>().text = heldUpgrade.Name + ":\n" + 
                     PlayerManager.Inst.purchases[heldUpgrade.PurchasableIndex].Name + " cost " + 
-                    (int)((1 - heldUpgrade.multiplier) * 100) + "% less milk\n$" + price;
+                    (int)((1 - heldUpgrade.multiplier) * 100) + "% less milk\n" + price.ToString("C");
                 break;
             case Up_Catagory.WinGame:
-                GetComponentInChildren<Text>().text = heldUpgrade.Name + ":\nEscape armageddon\n$" + price;
+                GetComponentInChildren<Text>().text = heldUpgrade.Name + ":\nEscape armageddon\n" + price.ToString("C");
                 break;
         }
     }

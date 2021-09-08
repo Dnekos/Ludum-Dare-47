@@ -44,13 +44,14 @@ public class WorldManager : MonoBehaviour
         if (currenttime < 10)
             Countdown.color = Color.red;
         if (currenttime > 0)
-            currenttime -= Time.deltaTime;
+        { }
+        // currenttime -= Time.deltaTime;
         else if (endgame.activeSelf == false)
         {
             EndTab.SetActive(true);
             EndTab.transform.SetAsLastSibling();
 
-            EndTab.transform.GetChild(2).GetChild(0).GetComponent<Text>().text = "You recieve "+(int)Mathf.Pow((float)PlayerManager.Inst.money * 0.2f, 0.8f)+" Crystalized Milk";
+            EndTab.transform.Find("Crystal Milk Text").GetComponent<Text>().text = "You recieve " + (int)Mathf.Pow((float)PlayerManager.Inst.money * 0.2f, 0.8f) + " Crystalized Milk";
         }
     }
     public void EndTheWorld()

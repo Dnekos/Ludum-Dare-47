@@ -23,7 +23,6 @@ public class CowManager : MonoBehaviour
         buttontxt = transform.GetChild(0).GetComponent<Text>();
         bartransform = transform.GetChild(1).GetChild(0).transform;
         bartxt = transform.GetChild(1).GetChild(1).GetComponent<Text>();
-        Debug.Log("lookie here " + gameObject.name + bartxt.name);
         //bartxt.text = "All " + PlayerManager.Inst.purchases[PurchasableIndex].Name + "s refilled";
     }
 
@@ -68,8 +67,10 @@ public class CowManager : MonoBehaviour
     public void ProduceClick()
     {
         Workspace item = (Workspace)PlayerManager.Inst.purchases[PurchasableIndex];
-        if (charging_cows < item.Available && PlayerManager.Inst.milk < item.milkcost)//new Currency((item.milkcost)))
+        if (charging_cows < item.Available && PlayerManager.Inst.milk <= item.milkcost)//new Currency((item.milkcost)))
         {
+            Debug.Log(item.recharge_time);
+
             PlayerManager.Inst.milk = PlayerManager.Inst.milk - item.milkcost;//new Currency((float)item.milkcost); 
 
             if (timeleft <= 0) // only reset bar is not actively charging
