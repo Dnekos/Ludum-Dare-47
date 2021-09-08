@@ -19,14 +19,19 @@ public class WorldManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Tab Unlocks
         if (PlayerManager.Inst.unlocked_Production)
             ProductionTab.SetActive(true);
         if (PlayerManager.Inst.unlocked_Upgrades)
             UpgradeTab.SetActive(true);
         if (PlayerManager.Inst.unlocked_tokens)
-        {
             ResearchTab.SetActive(true);
 
+        // timer display
+        if (currenttime < 10) // if ten seconds left, turn red
+            Countdown.color = Color.red;
+        if (currenttime < 10 || PlayerManager.Inst.unlocked_tokens) // show timer all the time if EotW happened or ten seconds before
+        {
             if (currenttime > 0)
             {
                 float minutes = Mathf.FloorToInt(currenttime / 60);
@@ -34,18 +39,17 @@ public class WorldManager : MonoBehaviour
                 Countdown.text = string.Format("{0:00}:{1:00}", minutes, seconds);
             }
             else
-                Countdown.text = "00:00";
+                Countdown.text = "00:00"; // cap it at 0
         }
         else
         {
             Countdown.text = "";
         }
 
-        if (currenttime < 10)
-            Countdown.color = Color.red;
         if (currenttime > 0)
-        { }
-        // currenttime -= Time.deltaTime;
+        {
+            currenttime -= Time.deltaTime;
+        }
         else if (endgame.activeSelf == false)
         {
             EndTab.SetActive(true);
