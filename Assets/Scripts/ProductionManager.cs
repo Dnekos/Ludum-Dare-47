@@ -21,7 +21,7 @@ public class ProductionManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        WorkerBuytext.text = "Buy Farmhand\n$" + PlayerManager.Inst.worker.price.DisplayNumber();
+        WorkerBuytext.text = "Buy Farmhand\n$" + PlayerManager.Inst.worker.price;
 
         for (int i = 0; i < transform.childCount; i++)
         {
@@ -49,7 +49,7 @@ public class ProductionManager : MonoBehaviour
                 Instantiate(Upgradeprefab, UpgradeTab);
             }
             UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.GetComponentInChildren<Text>().text = 
-                "Buy Farmhand\n$" + PlayerManager.Inst.worker.price.DisplayNumber();
+                "Buy Farmhand\n$" + PlayerManager.Inst.worker.price;
         }
     }
 

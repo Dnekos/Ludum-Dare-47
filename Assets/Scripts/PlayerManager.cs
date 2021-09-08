@@ -6,15 +6,15 @@ using UnityEngine.SceneManagement;
 public class PlayerManager : MonoBehaviour
 {
     // Standard vars
-    public Currency money;
+    public double money;
     public Workspace[] purchases;
     public Worker worker;
-    public Currency milk;
+    public double milk;
     public float[] automated_time_left;
     //public List<Upgrade> upgrades;
 
     // PRESTIGE vars
-    public Currency tokens;
+    public double tokens;
     public Research[] research;
     public bool unlocked_milk = false; // convert these to bitmap at some point
     public bool unlocked_tokens = false;
@@ -32,9 +32,9 @@ public class PlayerManager : MonoBehaviour
             Debug.Log("creating Inst");
             Inst = this;
 
-            money = new Currency(0,0);
-            milk = new Currency(0, 0);
-            tokens = new Currency(0, 0);
+            money = 0;// = new Currency(0,0);
+            milk = 0;// new Currency(0, 0);
+            tokens = 0;// new Currency(0, 0);
             research = new Research[10];
             for (int i = 0; i < research.Length; i++)
                 research[i] = new Research(i);
@@ -63,9 +63,9 @@ public class PlayerManager : MonoBehaviour
                 {
                     automated_time_left[i] = purchases[i].recharge_time * worker.time_multiplier;
                     if (purchases[i].making_milk)
-                        milk = milk + purchases[i].value * (float)purchases[i].used;
+                        milk = milk + purchases[i].value * purchases[i].used;
                     else
-                        money = money + purchases[i].value * (float)purchases[i].used;
+                        money = money + purchases[i].value * purchases[i].used;
                 }
                 automated_time_left[i] -= Time.deltaTime;
             }
@@ -82,8 +82,8 @@ public class PlayerManager : MonoBehaviour
 
     public void Reset()
     {
-        tokens = tokens + (money * 0.2f).Pow(0.8f);
-        if (tokens > new Currency(0,0))
+        tokens = tokens + Mathf.Pow((float)money * 0.2f, 0.8f);
+        if (tokens > 0)
             unlocked_tokens = true;
         Inst.SetUpWorld();
         SceneManager.LoadScene(1);

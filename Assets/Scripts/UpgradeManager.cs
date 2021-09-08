@@ -10,8 +10,8 @@ public class UpgradeManager : MonoBehaviour
     GameObject ButtonPrefab;
     public int index;
 
-    Currency price;
-    public Currency base_price;
+    double price;
+    public double base_price;
 
     // Start is called before the first frame update
     void Start()
@@ -20,7 +20,7 @@ public class UpgradeManager : MonoBehaviour
         heldUpgrade = new Upgrade(index);
 
         if (heldUpgrade.Catagory == Up_Catagory.WinGame)
-            price = new Currency(2,6);
+            price = 2000000;// new Currency(2,6);
         else if (PlayerManager.Inst.purchases[heldUpgrade.PurchasableIndex].applied_upgrades == 0)
         {
             item = PlayerManager.Inst.purchases[heldUpgrade.PurchasableIndex];
@@ -38,25 +38,25 @@ public class UpgradeManager : MonoBehaviour
             case Up_Catagory.Value:
                 GetComponentInChildren<Text>().text = heldUpgrade.Name + ":\n" +
                     PlayerManager.Inst.purchases[heldUpgrade.PurchasableIndex].Name + "s worth " + 
-                    (int)((heldUpgrade.multiplier - 1) *100) + "% more\n$"+price.DisplayNumber();
+                    (int)((heldUpgrade.multiplier - 1) *100) + "% more\n$"+price;
                 break;
             case Up_Catagory.Time:
                 GetComponentInChildren<Text>().text = heldUpgrade.Name + ":\n" + 
                     PlayerManager.Inst.purchases[heldUpgrade.PurchasableIndex].Name + "s are " + 
-                    (int)((1 - heldUpgrade.multiplier) * 100) + "% faster\n$" + price.DisplayNumber(); // technically should be "NAME takes PERCENT less time"
+                    (int)((1 - heldUpgrade.multiplier) * 100) + "% faster\n$" + price; // technically should be "NAME takes PERCENT less time"
                 break;
             case Up_Catagory.Price:
                 GetComponentInChildren<Text>().text = heldUpgrade.Name + ":\n" + 
                     PlayerManager.Inst.purchases[heldUpgrade.PurchasableIndex].Name + "s cost " + 
-                    (int)((1 - heldUpgrade.multiplier) * 100) + "% less\n$" + price.DisplayNumber();
+                    (int)((1 - heldUpgrade.multiplier) * 100) + "% less\n$" + price;
                 break;
             case Up_Catagory.MilkCost:
                 GetComponentInChildren<Text>().text = heldUpgrade.Name + ":\n" + 
                     PlayerManager.Inst.purchases[heldUpgrade.PurchasableIndex].Name + " cost " + 
-                    (int)((1 - heldUpgrade.multiplier) * 100) + "% less milk\n$" + price.DisplayNumber();
+                    (int)((1 - heldUpgrade.multiplier) * 100) + "% less milk\n$" + price;
                 break;
             case Up_Catagory.WinGame:
-                GetComponentInChildren<Text>().text = heldUpgrade.Name + ":\nEscape armageddon\n$" + price.DisplayNumber();
+                GetComponentInChildren<Text>().text = heldUpgrade.Name + ":\nEscape armageddon\n$" + price;
                 break;
         }
     }

@@ -50,7 +50,7 @@ public class WorldManager : MonoBehaviour
             EndTab.SetActive(true);
             EndTab.transform.SetAsLastSibling();
 
-            EndTab.transform.GetChild(2).GetChild(0).GetComponent<Text>().text = "You recieve "+(int)Mathf.Pow(PlayerManager.Inst.money * 0.2f, 0.8f)+" Crystalized Milk";
+            EndTab.transform.GetChild(2).GetChild(0).GetComponent<Text>().text = "You recieve "+(int)Mathf.Pow((float)PlayerManager.Inst.money * 0.2f, 0.8f)+" Crystalized Milk";
         }
     }
     public void EndTheWorld()

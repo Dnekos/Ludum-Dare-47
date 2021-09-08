@@ -10,7 +10,7 @@ public class Purchasable
 
     public int quantity = 0; // how many cows
     public int used = 0; // how many are not working as a hand or being worked on
-    public Currency price; // how much for a cow
+    public double price; // how much for a cow
     public float growth_rate; // how much price changes
 
     public int first_upgrade_index;
@@ -22,7 +22,7 @@ public class Purchasable
     {
         if ((price * 100) <= PlayerManager.Inst.money * 100)
         {
-            PlayerManager.Inst.money = PlayerManager.Inst.money - (price * 100) * 0.01f;
+            PlayerManager.Inst.money = PlayerManager.Inst.money - (price * 100 * 0.01);
             price *= growth_rate;
             quantity++;
             return true;
@@ -59,7 +59,7 @@ public class Worker : Purchasable
         {
             ID = int.Parse(reader[0].ToString());
             Name = reader[1].ToString();
-            price = new Currency(float.Parse(reader[2].ToString()),0);
+            price = double.Parse(reader[2].ToString());//new Currency(float.Parse(reader[2].ToString()),0);
             growth_rate = float.Parse(reader[3].ToString());
             time_multiplier = float.Parse(reader[6].ToString());
             first_upgrade_index = int.Parse(reader[8].ToString());
@@ -75,7 +75,7 @@ public class Workspace : Purchasable
     public int milkcost;
     public bool making_milk = false;
 
-    public Currency value; // how much they produce per click
+    public double value; // how much they produce per click
     public float recharge_time; // how long till can be clicked again
 
     public string actionphrase;
@@ -107,9 +107,9 @@ public class Workspace : Purchasable
         {
             ID = int.Parse(reader[0].ToString());
             Name = reader[1].ToString();
-            price = new Currency(float.Parse(reader[2].ToString()), 0);
+            price = double.Parse(reader[2].ToString());//new Currency(float.Parse(reader[2].ToString()), 0);
             growth_rate = float.Parse(reader[3].ToString());
-            value = new Currency(float.Parse(reader[4].ToString()), 0);
+            value = double.Parse(reader[4].ToString());//new Currency(float.Parse(reader[4].ToString()), 0);
             actionphrase = reader[5].ToString();
             recharge_time = float.Parse(reader[6].ToString());
             milkcost = int.Parse(reader[7].ToString());
