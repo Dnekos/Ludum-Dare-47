@@ -62,13 +62,22 @@ public class PlayerManager : MonoBehaviour
         if (WorldManager.currenttime > 0)
             for (int i = 0; i < automated_time_left.Length;i++)
             {
-                if (automated_time_left[i] < 0 && purchases[i].used > 0)
+                if (automated_time_left[i] < 0 && purchases[i].used > 0) // if the worker timer hit 0
                 {
-                    automated_time_left[i] = purchases[i].recharge_time * worker.time_multiplier;
-                    if (purchases[i].making_milk)
-                        milk = milk + purchases[i].value * purchases[i].used;
-                    else
-                        money = money + purchases[i].value * purchases[i].used;
+                    automated_time_left[i] = purchases[i].recharge_time * worker.time_multiplier; // reset timer
+                    for (int j = 0; j < purchases[j].used; i++) // for each worker
+                    {
+                        if (purchases[i].milkcost <= milk) // check if theres enough milk
+                        {
+                            milk -= purchases[i].milkcost;
+                            if (purchases[i].making_milk)
+                                milk = milk + purchases[i].value * purchases[i].used;
+                            else
+                                money = money + purchases[i].value * purchases[i].used;
+                        }
+                        else
+                            break; // else stop checking them off
+                    }
                 }
                 automated_time_left[i] -= Time.deltaTime;
             }
@@ -111,17 +120,19 @@ public class PlayerManager : MonoBehaviour
         automated_time_left = new float[6];
         worker = new Worker();
 
+
+        AcquisitionsManager AM = GameObject.Find("AcquisitionsGrid").GetComponent<AcquisitionsManager>();
         for (int i = 0; i < purchases.Length; i++) // researches 0-5
         {
             purchases[i] = new Workspace(i + 1);
 
             purchases[i].quantity += Mathf.Min((int)Mathf.Pow(2, research[i].Rank - 1), quantities[i]);
-            GameObject.Find("AcquisitionsGrid").GetComponent<AcquisitionsManager>().UnlockUpgrades(purchases[i]);
+            AM.UnlockUpgrades(purchases[i]);
         }
         
         // research 6
         worker.quantity = Mathf.CeilToInt(Mathf.Pow(2, research[6].Rank - 1) * 0.5f);
-        GameObject.Find("AcquisitionsGrid").GetComponent<AcquisitionsManager>().UnlockUpgrades(worker);
+        AM.UnlockUpgrades(worker);
 
         WorldManager.currenttime = baseworldlength + 5 * research[9].Rank;
 

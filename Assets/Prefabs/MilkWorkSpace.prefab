@@ -1008,7 +1008,7 @@ MonoBehaviour:
       - m_Target: {fileID: 7055758355131513890}
         m_TargetAssemblyTypeName: CowManager, Assembly-CSharp
         m_MethodName: ToggleMilk
-        m_Mode: 0
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

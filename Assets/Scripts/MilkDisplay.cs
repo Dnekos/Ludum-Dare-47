@@ -9,6 +9,6 @@ public class MilkDisplay : MonoBehaviour
     void Update()
     {
         if (PlayerManager.Inst.unlocked_milk)
-            GetComponent<Text>().text = PlayerManager.Inst.milk + " Cartons of Milk";
+            GetComponent<Text>().text = PlayerManager.Inst.milk.ToString("N0") + " Cartons of Milk";
     }
 }

@@ -42,7 +42,7 @@ public class ProductionManager : MonoBehaviour
         Worker item = PlayerManager.Inst.worker;
         if (item.Purchase())
         {
-            if (item.quantity == 5)
+            if (item.quantity >= 5)
             {
                 PlayerManager.Inst.unlocked_Upgrades = true;
                 Upgradeprefab.GetComponent<UpgradeManager>().index = item.first_upgrade_index;

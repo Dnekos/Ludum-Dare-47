@@ -34,25 +34,26 @@ public class ResearchManager : MonoBehaviour
         switch (i) // description
         {
             case 0:
-                transform.GetChild(i).GetChild(1).GetComponent<Text>().text = (int)Mathf.Pow(2, research.Rank) + " Cows come with you";
+
+                transform.GetChild(i).GetChild(1).GetComponent<Text>().text = (int)Mathf.Pow(2, research.Rank) +" Cow" + (research.Rank == 0 ? " comes" : "s come") + " with you";
                 break;
             case 1:
-                transform.GetChild(i).GetChild(1).GetComponent<Text>().text = (int)Mathf.Pow(2, research.Rank) + " Goats come with you";
+                transform.GetChild(i).GetChild(1).GetComponent<Text>().text = (int)Mathf.Pow(2, research.Rank) + " Goat" + (research.Rank == 0 ? " comes" : "s come") + " with you";
                 break;
             case 2:
-                transform.GetChild(i).GetChild(1).GetComponent<Text>().text = (int)Mathf.Pow(2, research.Rank) + " Creameries come with you";
+                transform.GetChild(i).GetChild(1).GetComponent<Text>().text = (int)Mathf.Pow(2, research.Rank) + " Creamer" + (research.Rank == 0 ? "y comes" : "ies come") + " with you";
                 break;
             case 3:
-                transform.GetChild(i).GetChild(1).GetComponent<Text>().text = (int)Mathf.Pow(2, research.Rank) + " Fromageries come with you";
+                transform.GetChild(i).GetChild(1).GetComponent<Text>().text = (int)Mathf.Pow(2, research.Rank) + " Fromagerie" + (research.Rank == 0 ? " comes" : "s come") + " with you";
                 break;
             case 4:
-                transform.GetChild(i).GetChild(1).GetComponent<Text>().text = (int)Mathf.Pow(2, research.Rank) + " Ice Cream Parlors come with you";
+                transform.GetChild(i).GetChild(1).GetComponent<Text>().text = (int)Mathf.Pow(2, research.Rank) + " Ice Cream Parlor" + (research.Rank == 0 ? " comes" : "s come") + " with you";
                 break;
             case 5:
-                transform.GetChild(i).GetChild(1).GetComponent<Text>().text = (int)Mathf.Pow(2, research.Rank) + " Yogurt Factorys come with you";
+                transform.GetChild(i).GetChild(1).GetComponent<Text>().text = (int)Mathf.Pow(2, research.Rank) + " Yogurt Factor" + (research.Rank == 0 ? "y comes" : "ies come") + " with you";
                 break;
             case 6:
-                transform.GetChild(i).GetChild(1).GetComponent<Text>().text = (int)Mathf.Pow(2, research.Rank) + " Farmhands come with you";
+                transform.GetChild(i).GetChild(1).GetComponent<Text>().text = (int)Mathf.Pow(2, research.Rank) + " Farmhand" + (research.Rank == 0 ? " comes" : "s come") + " with you";
                 break;
             case 7:
                 transform.GetChild(i).GetChild(1).GetComponent<Text>().text = "Keep " + (2 * (research.Rank + 1)) + "% of Money";

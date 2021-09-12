@@ -67,10 +67,8 @@ public class CowManager : MonoBehaviour
     public void ProduceClick()
     {
         Workspace item = (Workspace)PlayerManager.Inst.purchases[PurchasableIndex];
-        if (charging_cows < item.Available && PlayerManager.Inst.milk <= item.milkcost)//new Currency((item.milkcost)))
+        if (charging_cows < item.Available && item.milkcost <= PlayerManager.Inst.milk)//new Currency((item.milkcost)))
         {
-            Debug.Log(item.recharge_time);
-
             PlayerManager.Inst.milk = PlayerManager.Inst.milk - item.milkcost;//new Currency((float)item.milkcost); 
 
             if (timeleft <= 0) // only reset bar is not actively charging
@@ -89,15 +87,5 @@ public class CowManager : MonoBehaviour
         Workspace item = (Workspace)PlayerManager.Inst.purchases[PurchasableIndex];
 
         item.making_milk = tog;
-        /*if (item.making_milk)
-        {
-            MoneyTgl.isOn = true;
-            MilkTgl.isOn = false;
-        }
-        else
-        {
-            MoneyTgl.isOn = false;
-            MilkTgl.isOn = true;
-        }*/
     }
 }

@@ -58,7 +58,7 @@ public class AcquisitionsManager : MonoBehaviour
 
     public void UnlockUpgrades(Purchasable item)
     {
-        if (item.quantity == 5)
+        if (item.quantity >= 5)
         {
             PlayerManager.Inst.unlocked_Upgrades = true;
             Upgradeprefab.GetComponent<UpgradeManager>().index = item.first_upgrade_index;

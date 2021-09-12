@@ -49,7 +49,7 @@ public class WorldManager : MonoBehaviour
         if (currenttime > 0)
         {
             currenttime -= Time.deltaTime;
-            Debug.Log(currenttime);
+            //Debug.Log(currenttime);
         }
         else if (endgame.activeSelf == false)
         {
